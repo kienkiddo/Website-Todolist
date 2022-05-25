@@ -81,6 +81,9 @@ class Member {
     return $db->execute("INSERT INTO member(id, user, pass, name) VALUES(NULL, '$this->user', '$this->pass', '$this->name')");
   }
 
+  public function updateInfo($db){
+    return $db->execute("UPDATE member SET name='$this->name', pass='$this->pass' WHERE id='$this->id'");
+  }
 
   public static function withId($db, $id){
     $data = $db->getArr("SELECT * FROM member WHERE id='$id' LIMIT 1");

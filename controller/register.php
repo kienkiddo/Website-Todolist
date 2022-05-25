@@ -18,7 +18,7 @@ if (strlen($name) < 6 || strlen($name) > 32) {
   $m = new Member();
   $m->setUser($user)->setPass(md5($pass))->setName($name);
   if ($m->isExist($db)) {
-    json_notify_with("#user", "warn", "Tên người dùng đã có người đăng ký.");
+    json_notify_with("#user", "error", "Tên người dùng đã có người đăng ký.");
   } else {
     if ($m->register($db)) {
       if ($m->login($db)){
@@ -28,7 +28,7 @@ if (strlen($name) < 6 || strlen($name) > 32) {
         json_notify("success", "REGISTER OK !!!");
       }
     } else {
-      json_notify_with("#btn", "danger", "Đã xảy ra lỗi, vui lòng liên hệ Admin để biết thêm.");
+      json_notify_with("#btn", "error", "Đã xảy ra lỗi, vui lòng liên hệ Admin để biết thêm.");
     }
   } 
 }
