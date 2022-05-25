@@ -1,0 +1,13 @@
+.color-m{
+ background-color: #ff6b18;
+ color: white; 
+}
+
+
+#nav a:hover {
+  color: #7f8c8d !important;
+}
+
+.li-login {
+  margin-right: 13px;
+}
