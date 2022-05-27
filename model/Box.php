@@ -41,8 +41,9 @@ class Box
     return $this->name;
   }
 
-  public function getTopics($db){
-    if ($this->topics == null){
+  public function getTopics($db)
+  {
+    if ($this->topics == null) {
       $this->topics = Topic::all($db, $this->id);
     }
     return $this->topics;
@@ -57,10 +58,18 @@ class Box
     $this->name = $data['name'];
   }
 
-  public function addTopic($db, $name){
-    $db->execute("INSERT INTO topic(id, boxId, name, timecreat) VALUES(null, '$this->id', '$name', '" . time() . "')");
+  public function addTopic($db, $name)
+  {
+    $db->execute("INSERT INTO topic(id, boxId, name, timecreat, timeupdate) VALUES(null, '$this->id', '$name', '" . time() . "', '" . time() . "')");
     $id = $db->getArr("SELECT LAST_INSERT_ID() as id")['id'];
     return Topic::withId($db, $id);
+  }
+
+  public static function addBoxOnl($db, $userId, $name)
+  {
+    $db->execute("INSERT INTO box(id, userId, off, name, timeupdate) VALUES(NULL, '$userId', '0', '$name', '" . time() . "')");
+    $id = $db->getArr("SELECT LAST_INSERT_ID() as id")['id'];
+    return Box::withId($db, $id);
   }
 
   public static function getBoxOff($db, $userId)
@@ -75,13 +84,28 @@ class Box
     return Box::getBoxOff($db, $userId);
   }
 
-  public static function withId($db, $id){
+  public static function withId($db, $id)
+  {
     $data = $db->getArr("SELECT * FROM box WHERE id='$id' LIMIT 1");
-    if (!empty($data)){
+    if (!empty($data)) {
       $box = new Box();
       $box->fill($data);
       return $box;
     }
     return null;
+  }
+
+  public static function all($db, $userId){
+    $data = $db->getArrs("SELECT * FROM box WHERE userId='$userId' and off=0 ORDER BY id ASC");
+    if (!empty($data)){
+      $boxs = array();
+      foreach ($data as $item){
+        $box = new Box();
+        $box->fill($item);
+        $boxs[] = $box;
+      }
+      return $boxs;
+    }
+    return array();
   }
 }

@@ -3,7 +3,7 @@
 include "Config.php";
 
 if ($login) {
-  $arr = array("user", "logout", "addtopic");
+  $arr = array("user", "logout", "addtopic", "addbox");
 } else {
   $arr = array("login", "register");
 }
@@ -23,6 +23,5 @@ foreach ($arr as $value) {
 if ($router == "index"){
   return;
 }
-
 
 include "controller/" . $router . ".php";

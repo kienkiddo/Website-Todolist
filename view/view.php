@@ -75,6 +75,13 @@ if ($topic == null) {
           <textarea class="form-control" placeholder="Ghi chú" rows="5" id="note"><?= $topic->getDescription() ?></textarea>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col text-right">
+          <small>Cập nhật: <?= $topic->getTimeAgo() ?> trước</small>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
