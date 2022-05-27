@@ -25,10 +25,10 @@
           <input class="form-control py-2 border-left-0 border" type="password" id="pass" name="pass" placeholder="Mật khẩu">
         </div>
         <div class="form-group">
-          <button class="btn color-m btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> ĐĂNG KÝ</button>
+          <button class="btn btn-info btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> ĐĂNG KÝ</button>
         </div>
       </form>
-      <p class="text-center">Bạn đã có tài khoản? <a href="index.php?page=login">Đăng nhập</a></p>
+      <p class="text-center">Bạn đã có tài khoản? <a href="index.php?page=dang-nhap">Đăng nhập</a></p>
     </div>
   </div>
 </div>

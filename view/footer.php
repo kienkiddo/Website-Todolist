@@ -8,7 +8,7 @@
 </body>
 
 <!-- Bootstrap core JavaScript -->
-
+<script src="asset/main.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 

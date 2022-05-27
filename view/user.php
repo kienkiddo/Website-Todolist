@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
       <h3 class="text-center">THÔNG TIN CÁ NHÂN</h3>
-      <hr style="width: 15%; height: 2px" class="color-m">
+      <hr style="width: 15%; height: 2px" class="bg-info">
       <div class="mt-5">
         <table class="table">
           <tr>
@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <td>Tác vụ:</td>
-            <th><button class="btn btn-sm color-m" href="javascript:void(0)" data-toggle="modal" data-target="#modal">Chỉnh sửa thông tin</button></th>
+            <th><button class="btn btn-sm btn-info" href="javascript:void(0)" data-toggle="modal" data-target="#modal">Chỉnh sửa thông tin</button></th>
           </tr>
         </table>
       </div>
@@ -34,7 +34,7 @@
 <div class="modal fade" id="modal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header  color-m">
+      <div class="modal-header bg-info text-white">
         <h4 class="modal-title">THAY ĐỔI THÔNG TIN</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -63,10 +63,10 @@
             <input class="form-control py-2 border-left-0 border" id="pass" name="pass" placeholder="Xác nhận mật khẩu hiện tại" type="password">
           </div>
           <div class="form-group mb-1">
-            <small><span class="text-danger">(*)</span> Nhập mật khẩu mới nếu muốn đổi mật khẩu</small>
+            <small><span class="text-danger">(*)</span> Nhập mật khẩu mới nếu muốn đổi mật khẩu.</small>
           </div>
           <div class="form-group">
-            <button class="btn color-m btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> THỰC HIỆN</button>
+            <button class="btn btn-info btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> THỰC HIỆN</button>
           </div>
         </form>
       </div>

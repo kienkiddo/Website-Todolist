@@ -20,10 +20,10 @@
             placeholder="Mật khẩu" type="password">
         </div>
         <div class="form-group">
-          <button class="btn color-m btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> ĐĂNG NHẬP</button>
+          <button class="btn btn-info btn-sm font-weight-bold form-control" type="button" id="btn"><span class="fas fa-key"></span> ĐĂNG NHẬP</button>
         </div>
       </form>
-      <p class="text-center">Bạn chưa có tài khoản? <a href="index.php?page=register">Đăng ký</a></p>
+      <p class="text-center">Bạn chưa có tài khoản? <a href="index.php?page=dang-ky">Đăng ký</a></p>
     </div>
   </div>
 </div>

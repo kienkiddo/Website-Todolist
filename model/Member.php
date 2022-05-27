@@ -52,12 +52,12 @@ class Member {
     return $this->timecreat;
   }
 
-  protected function fill(array $arr){
-    $this->id = $arr['id'];
-    $this->user = $arr['user'];
-    $this->pass = $arr['pass'];
-    $this->name = $arr['name'];
-    $this->timecreat = $arr['timecreat'];
+  protected function fill(array $data){
+    $this->id = $data['id'];
+    $this->user = $data['user'];
+    $this->pass = $data['pass'];
+    $this->name = $data['name'];
+    $this->timecreat = $data['timecreat'];
   }
 
   public function login($db){
