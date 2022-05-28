@@ -29,14 +29,30 @@ class Box
     return $this->id;
   }
 
+  public function setId($id){
+    $this->id = $id;
+    return $this;
+  }
+
   public function getOff()
   {
     return $this->off;
   }
 
+  public function setOff($off){
+    $this->off = $off;
+    return $this;
+  }
+
+
   public function getUserId()
   {
     return $this->userId;
+  }
+
+  public function setUserId($userId){
+    $this->userId = $userId;
+    return $this;
   }
 
   public function getTimeUpdate()
@@ -47,6 +63,11 @@ class Box
   public function getName()
   {
     return $this->name;
+  }
+
+  public function setName($name){
+    $this->name = $name;
+    return $this;
   }
 
   public function setJoin($join){
@@ -64,6 +85,11 @@ class Box
       $this->topics = Topic::all($db, $this->id);
     }
     return $this->topics;
+  }
+
+  public function setTopics($topics){
+    $this->topics = $topics;
+    return $this;
   }
 
   public function getRoles($db){
@@ -126,8 +152,6 @@ class Box
     return $db->execute("DELETE FROM box WHERE id='$this->id' LIMIT 1");
   }
 
-
-
   public function addTopic($db, $name)
   {
     $db->execute("INSERT INTO topic(id, boxId, name, timecreat, timeupdate) VALUES(null, '$this->id', '$name', '" . time() . "', '" . time() . "')");
@@ -152,6 +176,15 @@ class Box
     }
     $db->execute("INSERT INTO box(id, userId, off, name, timeupdate) VALUES(NULL, '$userId', '1', '', '" . time() . "')");
     return Box::getBoxOff($db, $userId);
+  }
+
+  public static function getBoxForMe($db, $userId){
+    $box = new Box();
+    $box->setId(-1);
+    $box->setName("Quan trọng");
+    $box->setUserId($userId);
+    $box->setTopics(Topic::allForMe($db, $userId));
+    return $box;
   }
 
   public static function withId($db, $id)
@@ -192,5 +225,6 @@ class Box
     }
     return array();
   }
+
 
 }

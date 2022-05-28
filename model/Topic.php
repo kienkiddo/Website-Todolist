@@ -258,4 +258,20 @@ class Topic
     }
     return array();
   }
+
+
+  public static function allForMe($db, $userId)
+  {
+    $data = $db->getArrs("SELECT * FROM topic WHERE userId='$userId' ORDER BY id DESC");
+    if (!empty($data)) {
+      $topics = array();
+      foreach ($data as $item) {
+        $topic = new Topic();
+        $topic->fill($item);
+        $topics[] = $topic;
+      }
+      return $topics;
+    }
+    return array();
+  }
 }

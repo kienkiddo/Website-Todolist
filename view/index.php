@@ -3,12 +3,16 @@ $boxId = isset($_GET['boxId']) ? $_GET['boxId'] : 0;
 $titles = array("0" => "LỊCH TRÌNH", "-1" => "QUAN TRỌNG", "-2" => "GIAO CHO TÔI");
 
 include_once "model/Box.php";
+include_once "model/Topic.php";
+
 if ($boxId == 0) {
   $box = Box::getBoxOff($db, $member->getId());
 } else if ($boxId > 0) {
   $box = Box::withId($db, $boxId);
 } else if ($boxId < 0) {
-  ///////
+  if ($boxId == -1){
+    $box = Box::getBoxForMe($db, $member->getId());
+  }
 }
 
 if ($box == null || !$box->isMember($db, $member->getId())) {
@@ -25,8 +29,7 @@ if ($box == null || !$box->isMember($db, $member->getId())) {
       <div class="bg bg-light pb-3" id="navBox">
         <div class="btn-group-vertical" style="width: 100%">
           <a href="index.php?boxId=0"><i class="fas fa-sun"></i>&ensp;LỊCH TRÌNH</a>
-          <a href="index.php?boxId=-1"><i class="fas fa-star"></i>&ensp;QUAN TRỌNG</a>
-          <a href="index.php?boxId=-2"><i class="fas fa-meteor"></i>&ensp;GIAO CHO TÔI</a>
+          <a href="index.php?boxId=-1"><i class="fas fa-meteor"></i>&ensp;GIAO CHO TÔI</a>
         </div>
         <hr style="width: 95%" class="mb-0">
         <div class="btn-group-vertical" style="width: 100%" id="listBox">
@@ -63,7 +66,7 @@ if ($box == null || !$box->isMember($db, $member->getId())) {
             }
           }
           ?></h4>
-        <div class="btn-group" style="float: right; bottom: 15px">
+        <div class="btn-group" style="float: right; bottom: 15px" <?php if ($box->getId() < 0) echo "hidden"; ?>>
           <button class="dropdown-toggle" data-toggle="dropdown" style="border: none; background-color: transparent">
             <i class="fas fa-ellipsis-h"></i>
           </button>
@@ -94,7 +97,7 @@ if ($box == null || !$box->isMember($db, $member->getId())) {
       <script>
         $("#divAdd").hide();
       </script>
-      <div class="row bg bg-light rounded pt-2 pb-2 mb-3" style="display: block" id="divAdd2" onclick="$('#divAdd').show(); $(this).hide();">
+      <div class="row bg bg-light rounded pt-2 pb-2 mb-3" style="display: block" id="divAdd2" onclick="$('#divAdd').show(); $(this).hide();" <?php if ($box->getId() < 0) echo "hidden"; ?>>
         <div class="col">
           <div class="form-group mb-1 pl-2">
             <span class="fas fa-plus"></span> Thêm tác vụ
