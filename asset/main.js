@@ -17,6 +17,13 @@ function fChecker(t) {
   })
 }
 
+function copy(id) {
+  var copyText = document.getElementById(id);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+
 function fSetStar(t, id) {
   console.log("set star id= " + id);
   $.post({

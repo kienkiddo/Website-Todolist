@@ -16,6 +16,12 @@ class Topic
 
   private $done;
 
+  private $colorId;
+
+  private $tag;
+
+  private $userId;
+
   private $timecreat;
 
   private $timeupdate;
@@ -88,6 +94,31 @@ class Topic
     return $this;
   }
 
+  public function getColorId(){
+    return $this->colorId;
+  }
+
+  public function setColorId($colorId){
+    $this->colorId = $colorId;
+  }
+
+  public function getTag(){
+    return $this->tag;
+  }
+
+  public function setTag($tag){
+    $this->tag = $tag;
+  }
+
+  public function getUserId(){
+    return $this->userId;
+  }
+
+  public function setUserId($userId){
+    $this->userId = $userId;
+    return $this;
+  }
+
   public function getTimeCreat()
   {
     return $this->timecreat;
@@ -97,6 +128,7 @@ class Topic
   {
     return $this->timeupdate;
   }
+
 
   public function getTimeAgo(){
     $time = time() - $this->timeupdate;
@@ -142,6 +174,9 @@ class Topic
     $this->description = $data['description'];
     $this->star = $data['star'];
     $this->done = $data['done'];
+    $this->colorId = $data['colorId'];
+    $this->tag = $data['tag'];
+    $this->userId = $data['userId'];
     $this->timecreat = $data['timecreat'];
     $this->timeupdate = $data['timeupdate'];
   }
@@ -169,6 +204,16 @@ class Topic
   public function updateDescription($db)
   {
     return $db->execute("UPDATE topic SET description='$this->description', timeupdate='" . time() . "' WHERE id='$this->id' LIMIT 1");
+  }
+
+  public function updateTag($db)
+  {
+    return $db->execute("UPDATE topic SET colorId='$this->colorId', tag='$this->tag', timeupdate='" . time() . "' WHERE id='$this->id' LIMIT 1");
+  }
+
+  public function updateUserId($db)
+  {
+    return $db->execute("UPDATE topic SET userId='$this->userId', timeupdate='" . time() . "' WHERE id='$this->id' LIMIT 1");
   }
 
   public function delete($db)

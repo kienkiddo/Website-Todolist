@@ -12,6 +12,7 @@
   <link href="asset/main.css" rel="stylesheet" type="text/css">
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/notify/notify.js"></script>
+  <script>var home = '<?=$home?>';</script>
 </head>
 
 <body class="">

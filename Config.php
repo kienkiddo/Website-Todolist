@@ -6,10 +6,10 @@ if (!isset($_SESSION)) {
 $home = "http://localhost/todolist/";
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 $time = time();
-
-include "Util.php";
-include "model/DBConnect.php";
-include "model/Member.php";
+$arrColor = array("primary", "success", "danger", "warning", "dark");
+include_once "Util.php";
+include_once "model/DBConnect.php";
+include_once "model/Member.php";
 
 $db = new DBConnect();
 $db->connect();

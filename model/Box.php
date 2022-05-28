@@ -1,6 +1,8 @@
 <?php
 
 include_once "Topic.php";
+include_once "Role.php";
+include_once "Member.php";
 
 class Box
 {
@@ -14,7 +16,13 @@ class Box
 
   private $name;
 
+  private $join;
+
+  private $members = null;
+
   private $topics = null;
+
+  private $roles = null;
 
   public function getId()
   {
@@ -41,12 +49,63 @@ class Box
     return $this->name;
   }
 
+  public function setJoin($join){
+    $this->join = $join;
+    return $this;
+  }
+
+  public function getJoin(){
+    return $this->join;
+  }
+
   public function getTopics($db)
   {
     if ($this->topics == null) {
       $this->topics = Topic::all($db, $this->id);
     }
     return $this->topics;
+  }
+
+  public function getRoles($db){
+    if ($this->roles == null){
+      $this->roles = Role::withBoxId($db, $this->id);
+    }
+    return $this->roles;
+  }
+
+  public function getRole($db, $userId){
+    $this->getRoles($db);
+    foreach ($this->roles as $r){
+      if ($r->getUserId() == $userId){
+        return $r;
+      }
+    }
+    return null;
+  }
+
+  public function isMember($db, $userId){
+    if ($this->userId == $userId){
+      return true;
+    }
+    $this->getRoles($db);
+    foreach ($this->roles as $role){
+      if ($role->getUserId() == $userId){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function getMembers($db){
+    if ($this->members == null){
+      $this->members = array();
+      $this->members[] = Member::withId($db, $this->userId);
+      $ms = Member::withBox($db, $this->id);
+      foreach ($ms as $m){
+        $this->members[] = $m;
+      }
+    }
+    return $this->members;
   }
 
   protected function fill(array $data)
@@ -56,7 +115,18 @@ class Box
     $this->userId = $data['userId'];
     $this->timeupdate = $data['timeupdate'];
     $this->name = $data['name'];
+    $this->join = $data['isJoin'];
   }
+
+  public function updateJoin($db){
+    return $db->execute("UPDATE box SET isJoin='$this->join' WHERE id='$this->id' LIMIT 1");
+  }
+
+  public function delete($db){
+    return $db->execute("DELETE FROM box WHERE id='$this->id' LIMIT 1");
+  }
+
+
 
   public function addTopic($db, $name)
   {
@@ -96,7 +166,21 @@ class Box
   }
 
   public static function all($db, $userId){
+    $boxs = array();
     $data = $db->getArrs("SELECT * FROM box WHERE userId='$userId' and off=0 ORDER BY id ASC");
+    if (!empty($data)){
+      foreach ($data as $item){
+        $box = new Box();
+        $box->fill($item);
+        $boxs[] = $box;
+      }
+    }
+    $boxs += Box::all2($db, $userId);
+    return $boxs;
+  }
+
+  public static function all2($db, $userId){
+    $data = $db->getArrs("SELECT box.* FROM `box` INNER JOIN role ON role.boxId=box.id WHERE role.userId='$userId'");
     if (!empty($data)){
       $boxs = array();
       foreach ($data as $item){
@@ -108,4 +192,5 @@ class Box
     }
     return array();
   }
+
 }

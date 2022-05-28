@@ -3,7 +3,7 @@
 include "Config.php";
 
 if ($login) {
-  $arr = array("user", "logout", "addtopic", "addbox");
+  $arr = array("user", "logout", "addtopic", "addbox", "editbox", "join");
 } else {
   $arr = array("login", "register");
 }

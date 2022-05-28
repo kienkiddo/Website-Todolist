@@ -48,6 +48,17 @@ class Member {
     return $this;
   }
 
+  public function getCharIcon(){
+    $res = "";
+    $arr = explode(" ", $this->name);
+    if (count($arr) == 1){
+      $res = $this->name[0] . $this->name[0];
+    } else {
+      $res = $arr[0][0] . $arr[count($arr) - 1][0];
+    }
+    return mb_strtoupper($res);
+  }
+
   public function getTimeCreat(){
     return $this->timecreat;
   }
@@ -93,6 +104,17 @@ class Member {
       return $m;
     }
     return null;
+  }
+
+  public static function withBox($db, $boxId){
+    $members = array();
+    $data = $db->getArrs("SELECT member.* FROM role INNER JOIN member ON member.id = role.userId WHERE role.boxId='$boxId'");
+    foreach ($data as $item){
+      $m = new Member();
+      $m->fill($item);
+      $members[] = $m;
+    }
+    return $members;
   }
 
 }
